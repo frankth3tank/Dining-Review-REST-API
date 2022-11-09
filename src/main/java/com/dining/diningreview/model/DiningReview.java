@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="RESTAURANTS")
-public class Restaurant {
+@Table(name="REVIEWS")
+public class DiningReview {
     
     @Id
     @GeneratedValue
@@ -17,20 +17,20 @@ public class Restaurant {
     @Column(name="NAME")
     private String name;
 
-    @Column(name="AVG_PEANUT_SCORE")
-    private Integer peanutScore; 
+    @Column(name="PEANUT_SCORE")
+    private Integer peanutScore;
 
-    @Column(name="AVG_EGG_SCORE")
-    private Integer eggScore; 
+    @Column(name="EGG_SCORE")
+    private Integer eggScore;
 
-    @Column(name="AVG_Dairy_SCORE")
-    private Integer dairyScore; 
+    @Column(name="DAIRY_SCORE")
+    private Integer dairyScore;
 
-    @Column(name="OVERALL_SCORE")
-    private Integer overallScore; 
+    @Column(name="COMMENT")
+    private String comment;
 
 
-    public Restaurant() {
+    public DiningReview() {
     }
 
 
@@ -74,12 +74,12 @@ public class Restaurant {
         this.dairyScore = dairyScore;
     }
 
-    public Integer getOverallScore() {
-        return this.overallScore;
+    public String getComment() {
+        return this.comment;
     }
 
-    public void setOverallScore(Integer overallScore) {
-        this.overallScore = overallScore;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 }
