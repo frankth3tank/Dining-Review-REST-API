@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.dining.diningreview.model.User;
+import com.dining.diningreview.model.Users;
 import com.dining.diningreview.repository.UserRepository;
 
 @RestController
@@ -29,7 +29,7 @@ public class UserController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody User user) {
+    public void addUser(@RequestBody Users user) {
 
         validateUser(user);
 
@@ -38,38 +38,38 @@ public class UserController {
 
     @PutMapping("/{displayName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateUserInformation(@PathVariable String displayName, @RequestBody User updatedUser) {
+    public void updateUserInformation(@PathVariable String displayName, @RequestBody Users updatedUser) {
 
         validateDisplayName(displayName);
 
-        Optional<User> userToUpdateOptional = this.userRepository.findUserByDisplayName(displayName);
+        Optional<Users> userToUpdateOptional = this.userRepository.findByDisplayName(displayName);
         if (userToUpdateOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        User userUpdated = userToUpdateOptional.get();
+        Users userUpdated = userToUpdateOptional.get();
 
         copyUserInfoToUpdate(updatedUser, userUpdated);
         userRepository.save(userUpdated);
     }
 
     @GetMapping("/{displayName}")
-    public User getUser(@PathVariable String displayName) {
+    public Users getUser(@PathVariable String displayName) {
 
         validateDisplayName(displayName);
 
-        Optional<User> existingUserOptional = this.userRepository.findUserByDisplayName(displayName);
+        Optional<Users> existingUserOptional = this.userRepository.findByDisplayName(displayName);
         if (existingUserOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        User existingUser = existingUserOptional.get();
+        Users existingUser = existingUserOptional.get();
         existingUser.setId(null);
 
         return existingUser;
     }
 
-    private void copyUserInfoToUpdate(User updatedUser, User existingUser) {
+    private void copyUserInfoToUpdate(Users updatedUser, Users existingUser) {
         if (ObjectUtils.isEmpty(updatedUser.getDisplayName())) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -99,11 +99,11 @@ public class UserController {
         }
     }
 
-    private void validateUser(User user) {
+    private void validateUser(Users user) {
 
         validateDisplayName(user.getDisplayName());
 
-        Optional<User> existingUser = userRepository.findUserByDisplayName(user.getDisplayName());
+        Optional<Users> existingUser = userRepository.findByDisplayName(user.getDisplayName());
         if (existingUser.isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
