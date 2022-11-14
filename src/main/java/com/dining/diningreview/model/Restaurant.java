@@ -24,13 +24,13 @@ public class Restaurant {
 
     private String state;
 
-    private Integer zipcode;
+    private String zipcode;
 
-    private Integer peanutScore; 
+    private String peanutScore; 
 
-    private Integer eggScore; 
+    private String eggScore; 
 
-    private Integer dairyScore; 
+    private String dairyScore; 
 
-    private Integer overallScore; 
+    private String overallScore; 
 }

@@ -22,7 +22,6 @@ public class DiningReview {
 
     private Long restaurantId;
 
-
     private Integer peanutScore;
 
     private Integer eggScore;
@@ -30,5 +29,7 @@ public class DiningReview {
     private Integer dairyScore;
 
     private String review;
+
+    private ReviewStatus status;
 
 }
